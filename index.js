@@ -114,6 +114,7 @@ module.exports = {
     let providedAnnotation;
     let throwUnlessParallelizable;
     let sourceMaps = false;
+    let generatorOpts = {};
     let shouldCompileModules = _shouldCompileModules(config, this.project);
 
     if (emberCLIBabelConfig) {
@@ -125,9 +126,14 @@ module.exports = {
       sourceMaps = config.babel.sourceMaps;
     }
 
+    if (config.babel && "generatorOpts" in config.babel) {
+      generatorOpts = config.babel.generatorOpts;
+    }
+
     let options = {
       annotation: providedAnnotation || `Babel: ${_parentName(this.parent)}`,
       sourceMaps,
+      generatorOpts,
       throwUnlessParallelizable,
       filterExtensions: this.getSupportedExtensions(config),
       plugins: []
